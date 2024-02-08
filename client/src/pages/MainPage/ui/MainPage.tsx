@@ -1,6 +1,7 @@
 import React from 'react'
 import cls from './MainPage.module.scss'
 import { classNames } from '../../../shared/lib/classNames/classNames'
+import { Calendar } from '../../../widgets/Calendar'
 
 interface MainPageProps {
 	className?: string
@@ -9,7 +10,7 @@ interface MainPageProps {
 const MainPage = ({ className }: MainPageProps) => {
 	return (
 		<div className={classNames(cls.MainPage, {}, [className])}>
-			Главная страница
+			<Calendar />
 		</div>
 	)
 }
