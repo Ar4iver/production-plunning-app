@@ -11,7 +11,7 @@ export function buildWebpackConfig(
 	const { paths, mode, isDev } = options
 
 	return {
-		mode: mode,
+		mode,
 		entry: paths.entry,
 		output: {
 			filename: '[name].[contenthash].js',
@@ -20,7 +20,7 @@ export function buildWebpackConfig(
 		},
 		plugins: buildPlugins(options),
 		module: {
-			rules: buildLoaders(),
+			rules: buildLoaders(options),
 		},
 		resolve: buildResolvers(),
 		devtool: isDev ? 'inline-source-map' : undefined,
