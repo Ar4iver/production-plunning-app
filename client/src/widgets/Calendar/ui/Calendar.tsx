@@ -4,12 +4,14 @@ import cls from './Calendar.module.scss'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import SettingsContext from 'shared/lib/settings/SettingsContext'
+import { AddPlanForm } from 'features/addPlanForm'
+import { Modal } from 'shared/ui/Modal/Modal'
 
 // totalParts: number // общее количество деталей
 // totalDays: number // общее количество дней
 // workingHoursPerDay: number // рабочие часы в день
-// partProductionTime: number // время изготовления одной детали в минутах
-// productivity: number // производительность в десятичной форме (например, 80% = 0.8)
+// partProductionTime: number // время этапа изготовления детали
+// productivity: number // производительность
 
 interface CalendarProps {
 	className?: string
@@ -31,6 +33,7 @@ export const Calendar = ({ className }: CalendarProps) => {
 		setShiftsPerDay,
 	} = useContext(SettingsContext)
 
+	const [isOpen, setIsOpen] = useState(false)
 	const [calendarEvents, setCalendarEvents] = useState<any[]>([])
 
 	useEffect(() => {
@@ -66,10 +69,10 @@ export const Calendar = ({ className }: CalendarProps) => {
 				events.push({
 					title: shiftInfoString,
 					date: dateString,
-					color: remainingParts > 0 ? 'red' : undefined,
+					color: remainingParts > 0 ? undefined : 'red',
 				})
 
-				if (remainingParts <= 0) break // Остановим планирование если остаток деталей исчерпан
+				if (remainingParts <= 0) break
 			}
 
 			currentDate.setDate(currentDate.getDate() + 1)
@@ -80,10 +83,14 @@ export const Calendar = ({ className }: CalendarProps) => {
 
 	return (
 		<div>
-			<h2>Production Calendar</h2>
+			<button onClick={() => setIsOpen(true)}>Добавить план</button>
+			<Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+				<AddPlanForm />
+			</Modal>
+			<h2>Календарь планирования</h2>
 			<div>
 				<label>
-					Total Parts:
+					Количество деталей:{' '}
 					<input
 						type="number"
 						value={totalParts}
@@ -95,7 +102,7 @@ export const Calendar = ({ className }: CalendarProps) => {
 			</div>
 			<div>
 				<label>
-					Total Days:
+					Количество дней:{' '}
 					<input
 						type="number"
 						value={totalDays}
@@ -105,7 +112,7 @@ export const Calendar = ({ className }: CalendarProps) => {
 			</div>
 			<div>
 				<label>
-					Working Hours Per Day:
+					Рабочие часы:{' '}
 					<input
 						type="number"
 						value={workingHoursPerDay}
@@ -117,7 +124,7 @@ export const Calendar = ({ className }: CalendarProps) => {
 			</div>
 			<div>
 				<label>
-					Part Production Time (minutes):
+					Время этапа изготовления детали:{' '}
 					<input
 						type="number"
 						value={partProductionTime}
@@ -129,7 +136,7 @@ export const Calendar = ({ className }: CalendarProps) => {
 			</div>
 			<div>
 				<label>
-					Productivity (%):
+					Производительность (%):{' '}
 					<input
 						type="number"
 						value={productivity}
@@ -141,7 +148,7 @@ export const Calendar = ({ className }: CalendarProps) => {
 			</div>
 			<div>
 				<label>
-					Shifts Per Day:
+					Количество смен:{' '}
 					<input
 						type="number"
 						value={shiftsPerDay}
