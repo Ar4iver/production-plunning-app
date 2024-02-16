@@ -83,81 +83,15 @@ export const Calendar = ({ className }: CalendarProps) => {
 
 	return (
 		<div>
-			<button onClick={() => setIsOpen(true)}>Добавить план</button>
+			<button
+				className="bg-blue-500 text-white rounded px-4 py-2 hover:bg-blue-600 focus:outline-none"
+				onClick={() => setIsOpen(true)}
+			>
+				Добавить план
+			</button>
 			<Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
 				<AddPlanForm />
 			</Modal>
-			<h2>Календарь планирования</h2>
-			<div>
-				<label>
-					Количество деталей:{' '}
-					<input
-						type="number"
-						value={totalParts}
-						onChange={(e) =>
-							setTotalParts(parseInt(e.target.value))
-						}
-					/>
-				</label>
-			</div>
-			<div>
-				<label>
-					Количество дней:{' '}
-					<input
-						type="number"
-						value={totalDays}
-						onChange={(e) => setTotalDays(parseInt(e.target.value))}
-					/>
-				</label>
-			</div>
-			<div>
-				<label>
-					Рабочие часы:{' '}
-					<input
-						type="number"
-						value={workingHoursPerDay}
-						onChange={(e) =>
-							setWorkingHoursPerDay(parseInt(e.target.value))
-						}
-					/>
-				</label>
-			</div>
-			<div>
-				<label>
-					Время этапа изготовления детали:{' '}
-					<input
-						type="number"
-						value={partProductionTime}
-						onChange={(e) =>
-							setPartProductionTime(parseInt(e.target.value))
-						}
-					/>
-				</label>
-			</div>
-			<div>
-				<label>
-					Производительность (%):{' '}
-					<input
-						type="number"
-						value={productivity}
-						onChange={(e) =>
-							setProductivity(parseInt(e.target.value))
-						}
-					/>
-				</label>
-			</div>
-			<div>
-				<label>
-					Количество смен:{' '}
-					<input
-						type="number"
-						value={shiftsPerDay}
-						onChange={(e) =>
-							setShiftsPerDay(parseInt(e.target.value))
-						}
-					/>
-				</label>
-			</div>
 			<FullCalendar
 				plugins={[dayGridPlugin]}
 				initialView="dayGridMonth"

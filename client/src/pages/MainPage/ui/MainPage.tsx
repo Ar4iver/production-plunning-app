@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import cls from './MainPage.module.scss'
 import { classNames } from 'shared/lib/classNames/classNames'
 import { Calendar } from 'widgets/Calendar'
