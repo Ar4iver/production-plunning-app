@@ -1,5 +1,5 @@
 import {
-	AnyAction,
+	PayloadAction,
 	Reducer,
 	ReducersMapObject,
 	combineReducers,
@@ -18,7 +18,7 @@ export function createReducerManager(
 	return {
 		getReducerMap: () => reducers,
 
-		reduce: (state: StateSchema, action: AnyAction) => {
+		reduce: (state: StateSchema, action: PayloadAction) => {
 			if (keysToRemove.length > 0) {
 				state = { ...state }
 				for (let key of keysToRemove) {

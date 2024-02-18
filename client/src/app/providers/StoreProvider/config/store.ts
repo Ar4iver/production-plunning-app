@@ -1,26 +1,48 @@
-import { ReducersMapObject, configureStore } from '@reduxjs/toolkit'
-import { StateSchema } from './StateSchema'
-import thunk from 'redux-thunk'
+import { Reducer, ReducersMapObject, configureStore } from '@reduxjs/toolkit'
+import { StateSchema, ThunkExtraArg } from './StateSchema'
 import { useDispatch } from 'react-redux'
+import {
+	ordersReducer,
+	plansReducer,
+	shiftsReducer,
+} from 'features/productionPlanning'
+import { machinesReducer } from 'entities/machines'
+import { detailsReducer } from 'entities/details'
+import { $api } from 'shared/api/api'
 import { createReducerManager } from './reducerManager'
-import { plansSliceReducer } from 'entities/Plan'
 
-export function createReduxStore(initialState?: StateSchema) {
+export function createReduxStore(
+	initialState?: StateSchema,
+	asyncReducers?: ReducersMapObject<StateSchema>
+) {
 	const rootReducers: ReducersMapObject<StateSchema> = {
-		plansSlice: plansSliceReducer,
+		...asyncReducers,
+		plans: plansReducer,
+		machines: machinesReducer,
+		orders: ordersReducer,
+		shifts: shiftsReducer,
+		details: detailsReducer,
 	}
 
-	// const reducerManager = createReducerManager(rootReducers)
+	const reducerManager = createReducerManager(rootReducers)
 
-	const store = configureStore<StateSchema>({
-		reducer: rootReducers,
-		// middleware: [thunk],
-		// devTools: __IS_DEV__,
+	const extraArg: ThunkExtraArg = {
+		api: $api,
+	}
+
+	const store = configureStore({
+		reducer: reducerManager.reduce as Reducer<StateSchema>,
 		preloadedState: initialState,
+		middleware: (getDefaultMiddleware) =>
+			getDefaultMiddleware({
+				thunk: {
+					extraArgument: extraArg,
+				},
+			}),
 	})
 
 	//@ts-ignore
-	// store.reducerManager = reducerManager
+	store.reducerManager = reducerManager
 
 	return store
 }

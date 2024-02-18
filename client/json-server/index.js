@@ -3,6 +3,7 @@ const jsonServer = require('json-server')
 const path = require('path')
 const http = require('http')
 const plansController = require('./plansController')
+const detailsController = require('./detailsController')
 
 const server = jsonServer.create()
 
@@ -13,6 +14,7 @@ server.use(jsonServer.bodyParser)
 
 server.use(router)
 server.post('/plans', plansController().addPlan)
+server.get('/details', detailsController().getAllDetails)
 
 // запуск сервера
 const HTTP_PORT = 8000

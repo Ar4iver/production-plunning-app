@@ -1,39 +1,52 @@
 {
-  "plans": [
-    {
-      "id": 1,
-      "detailName": "131530/1R - осевой тормозной диск",
-      "stage": "Первая сторона",
-      "quantity": 100,
-      "startDate": "2024-01-01",
-      "endDate": "2024-01-15",
-      "productivity": 75,
-      "shiftsCount": 2,
-      "equipment": "Станок Doosan"
-    },
-    {
-      "id": "13e8c8de-b0be-4a28-ab51-d5236659ef49",
-      "detailName": "1",
-      "stage": "1",
-      "quantity": "50",
-      "startDate": "2024-02-16T20:47:00.554Z",
-      "endDate": "2024-02-20T20:47:00.000Z",
-      "productivity": "80",
-      "equipment": "Doosan 1",
-      "shiftsPerDay": "",
-      "shiftsCount": "2"
-    },
-    {
-      "id": "a0257937-e0e7-4d34-8cd1-5371ecca1885",
-      "detailName": "1",
-      "stage": "1",
-      "quantity": "50",
-      "startDate": "2024-02-16T20:49:38.982Z",
-      "endDate": "2024-02-16T20:49:38.982Z",
-      "productivity": "687",
-      "equipment": "Doosan 1",
-      "shiftsPerDay": "",
-      "shiftsCount": "2"
-    }
-  ]
+	"plans": [],
+	"details": [
+		{
+			"id": "1",
+			"nameDetail": "C60059/1R",
+			"stages": [
+				{
+					"id": "1",
+					"nameStage": "Обработка первой стороны диска",
+					"timeStage": 25,
+					"machines": [
+						{
+							"id": "1",
+							"machineName": "Doosan 1"
+						},
+						{
+							"id": "2",
+							"machineName": "Doosan 2"
+						}
+					]
+				},
+				{
+					"id": "2",
+					"nameStage": "Обработка второй стороны диска",
+					"timeStage": 29,
+					"machines": [
+						{
+							"id": "1",
+							"machineName": "Doosan 1"
+						},
+						{
+							"id": "2",
+							"machineName": "Doosan 2"
+						}
+					]
+				},
+				{
+					"id": "3",
+					"nameStage": "Срез дисбаланса/Взвешивание/Маркировка",
+					"timeStage": 22,
+					"machines": [
+						{
+							"id": "1",
+							"machineName": "DMF"
+						}
+					]
+				}
+			]
+		}
+	]
 }

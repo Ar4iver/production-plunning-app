@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { SettingsProvider } from 'app/providers/SettingsProvider'
 import { StoreProvider } from 'app/providers/StoreProvider'
 
-const container = document.getElementById('root')
+const container = document.getElementById('root')!
 
 const root = createRoot(container)
 

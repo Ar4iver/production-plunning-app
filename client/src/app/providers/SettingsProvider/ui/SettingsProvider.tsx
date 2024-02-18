@@ -14,27 +14,27 @@ export const SettingsProvider = ({ children }: SettingsProvider) => {
 	}
 
 	const [totalParts, setTotalParts] = useState(
-		getLocalStorageSettings('totalParts', null)
+		getLocalStorageSettings('totalParts', 0)
 	)
 
 	const [totalDays, setTotalDays] = useState(
-		getLocalStorageSettings('totalDays', null)
+		getLocalStorageSettings('totalDays', 0)
 	)
 
 	const [workingHoursPerDay, setWorkingHoursPerDay] = useState(
-		getLocalStorageSettings('workingHoursPerDay', null)
+		getLocalStorageSettings('workingHoursPerDay', 0)
 	)
 
 	const [partProductionTime, setPartProductionTime] = useState(
-		getLocalStorageSettings('partProductionTime', null)
+		getLocalStorageSettings('partProductionTime', 0)
 	)
 
 	const [productivity, setProductivity] = useState(
-		getLocalStorageSettings('productivity', null)
+		getLocalStorageSettings('productivity', 0)
 	)
 
 	const [shiftsPerDay, setShiftsPerDay] = useState(
-		getLocalStorageSettings('shiftsPerDay', null)
+		getLocalStorageSettings('shiftsPerDay', 0)
 	)
 
 	useEffect(() => {

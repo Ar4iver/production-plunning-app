@@ -56,7 +56,7 @@ export const Modal = ({ className, children, isOpen, onClose }: ModalProps) => {
 		}
 	}, [isOpen, onKeyDown])
 
-	const mods: Record<string, boolean> = {
+	const mods: Record<string, boolean | undefined> = {
 		[cls.opened]: isOpen,
 		[cls.isClosing]: isClosing,
 	}
