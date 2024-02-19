@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
+import { format } from 'date-fns'
 import 'react-datepicker/dist/react-datepicker.css'
 import Select, { SingleValue } from 'react-select'
 import { classNames } from 'shared/lib/classNames/classNames'
@@ -44,8 +45,7 @@ export const AddPlanForm = ({ className }: AddPlanFormProps) => {
 	const [productivity, setProductivity] = useState<number>(50)
 	const [shifts, setShifts] = useState<number>(3)
 	const [startDate, setStartDate] = useState(new Date())
-
-	console.log(startDate)
+	const formattedDate = format(startDate, 'yyyy-MM-dd')
 
 	const detailOptions = details.map((detail) => ({
 		value: detail.id,
@@ -102,7 +102,13 @@ export const AddPlanForm = ({ className }: AddPlanFormProps) => {
 	}
 
 	return (
-		<form className={classNames(cls.AddPlanForm, {}, ['space-y-4'])}>
+		<form
+			onSubmit={(e) => {
+				e.preventDefault()
+				console.log(formattedDate)
+			}}
+			className={classNames(cls.AddPlanForm, {}, ['space-y-4'])}
+		>
 			<div>
 				<label
 					htmlFor="detailName"

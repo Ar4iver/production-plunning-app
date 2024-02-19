@@ -3,7 +3,7 @@
 	"details": [
 		{
 			"id": "1",
-			"nameDetail": "C60059/1R",
+			"nameDetail": "C60059/1R - Осевой чугунный диск",
 			"stages": [
 				{
 					"id": "1",
@@ -39,6 +39,64 @@
 					"id": "3",
 					"nameStage": "Срез дисбаланса/Взвешивание/Маркировка",
 					"timeStage": 22,
+					"machines": [
+						{
+							"id": "1",
+							"machineName": "DMF"
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": "2",
+			"nameDetail": "C75145/1990 - Ступица «Ромашка»",
+			"stages": [
+				{
+					"id": "1",
+					"nameStage": "Обработка первой стороны ступицы",
+					"timeStage": 18,
+					"machines": [
+						{
+							"id": "1",
+							"machineName": "Doosan 1"
+						},
+						{
+							"id": "2",
+							"machineName": "Doosan 2"
+						}
+					]
+				},
+				{
+					"id": "2",
+					"nameStage": "Обработка второй стороны ступицы",
+					"timeStage": 20,
+					"machines": [
+						{
+							"id": "1",
+							"machineName": "Doosan 1"
+						},
+						{
+							"id": "2",
+							"machineName": "Doosan 2"
+						}
+					]
+				},
+				{
+					"id": "3",
+					"nameStage": "Срез дисбаланса/Взвешивание/Маркировка",
+					"timeStage": 18,
+					"machines": [
+						{
+							"id": "1",
+							"machineName": "DMF + Schenck"
+						}
+					]
+				},
+				{
+					"id": "4",
+					"nameStage": "Сверление/Фрезерование",
+					"timeStage": 15,
 					"machines": [
 						{
 							"id": "1",

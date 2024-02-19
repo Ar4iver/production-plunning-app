@@ -1,40 +1,36 @@
-const db = require('./db.json') // Подключаем файл базы данных json
-
+const db = require('./db.json')
 module.exports = function () {
 	return {
-		// Обработчик маршрута для добавления нового плана
 		addPlan: (req, res) => {
 			const {
 				detailName,
-				quantity,
-				deadline,
+				stage,
+				machine,
+				parts,
 				productivity,
-				shiftsPerDay,
-				equipment,
-			} = req.body // Получаем данные плана из тела запроса
+				shifts,
+				startDate,
+			} = req.body
 
-			// Генерируем уникальный идентификатор для нового плана
 			const newPlanId = db.plans.length + 1
 
-			// Создаем новый план
 			const newPlan = {
 				id: newPlanId.toString(),
 				detailName,
-				quantity,
-				startDate: new Date(),
-				deadline,
-				productivity,
-				shiftsPerDay,
-				equipment,
+				stage,
+				machine,
+				parts: parseInt(parts, 10),
+				productivity: parseInt(productivity, 10),
+				shifts: parseInt(shifts, 10),
+				startDate,
 			}
 
-			// Добавляем новый план в базу данных
 			db.plans.push(newPlan)
 
-			// Сохраняем изменения в файле базы данных
-			fs.writeFileSync('./json-server/db.json', JSON.stringify(db))
+			fs.writeFileSync('./db.json', JSON.stringify(db, null, 2), 'utf-8')
 
-			// Отправляем ответ с созданным планом и статусом 201 Created
+			db = require('./db.json')
+
 			res.status(201).json(newPlan)
 		},
 	}
