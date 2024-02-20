@@ -4,7 +4,7 @@ export interface Machine {
 }
 
 export interface MachinesState {
-	machines: Machine[]
+	data: Machine[]
 	isLoading: boolean
 	error: string | null
 }

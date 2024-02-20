@@ -1,110 +1,131 @@
 {
-	"plans": [],
-	"details": [
-		{
-			"id": "1",
-			"nameDetail": "C60059/1R - Осевой чугунный диск",
-			"stages": [
-				{
-					"id": "1",
-					"nameStage": "Обработка первой стороны диска",
-					"timeStage": 25,
-					"machines": [
-						{
-							"id": "1",
-							"machineName": "Doosan 1"
-						},
-						{
-							"id": "2",
-							"machineName": "Doosan 2"
-						}
-					]
-				},
-				{
-					"id": "2",
-					"nameStage": "Обработка второй стороны диска",
-					"timeStage": 29,
-					"machines": [
-						{
-							"id": "1",
-							"machineName": "Doosan 1"
-						},
-						{
-							"id": "2",
-							"machineName": "Doosan 2"
-						}
-					]
-				},
-				{
-					"id": "3",
-					"nameStage": "Срез дисбаланса/Взвешивание/Маркировка",
-					"timeStage": 22,
-					"machines": [
-						{
-							"id": "1",
-							"machineName": "DMF"
-						}
-					]
-				}
-			]
-		},
-		{
-			"id": "2",
-			"nameDetail": "C75145/1990 - Ступица «Ромашка»",
-			"stages": [
-				{
-					"id": "1",
-					"nameStage": "Обработка первой стороны ступицы",
-					"timeStage": 18,
-					"machines": [
-						{
-							"id": "1",
-							"machineName": "Doosan 1"
-						},
-						{
-							"id": "2",
-							"machineName": "Doosan 2"
-						}
-					]
-				},
-				{
-					"id": "2",
-					"nameStage": "Обработка второй стороны ступицы",
-					"timeStage": 20,
-					"machines": [
-						{
-							"id": "1",
-							"machineName": "Doosan 1"
-						},
-						{
-							"id": "2",
-							"machineName": "Doosan 2"
-						}
-					]
-				},
-				{
-					"id": "3",
-					"nameStage": "Срез дисбаланса/Взвешивание/Маркировка",
-					"timeStage": 18,
-					"machines": [
-						{
-							"id": "1",
-							"machineName": "DMF + Schenck"
-						}
-					]
-				},
-				{
-					"id": "4",
-					"nameStage": "Сверление/Фрезерование",
-					"timeStage": 15,
-					"machines": [
-						{
-							"id": "1",
-							"machineName": "DMF"
-						}
-					]
-				}
-			]
-		}
-	]
+  "plans": [
+    {
+      "id": "6e19049e-b110-498d-bf89-574b8fae6190",
+      "detailInfo": {
+        "id": "1",
+        "detailName": "C60059/1R - Осевой чугунный диск"
+      },
+      "stage": {
+        "id": "2",
+        "nameStage": "Обработка второй стороны диска",
+        "timeStage": 29
+      },
+      "machine": {
+        "id": "1",
+        "machineName": "Doosan 1"
+      },
+      "parts": 100,
+      "productivity": 50,
+      "shifts": 3,
+      "startDate": "2024-02-20"
+    }
+  ],
+  "details": [
+    {
+      "id": "1",
+      "nameDetail": "C60059/1R - Осевой чугунный диск",
+      "stages": [
+        {
+          "id": "1",
+          "nameStage": "Обработка первой стороны диска",
+          "timeStage": 25,
+          "machines": [
+            {
+              "id": "1",
+              "machineName": "Doosan 1"
+            },
+            {
+              "id": "2",
+              "machineName": "Doosan 2"
+            }
+          ]
+        },
+        {
+          "id": "2",
+          "nameStage": "Обработка второй стороны диска",
+          "timeStage": 29,
+          "machines": [
+            {
+              "id": "1",
+              "machineName": "Doosan 1"
+            },
+            {
+              "id": "2",
+              "machineName": "Doosan 2"
+            }
+          ]
+        },
+        {
+          "id": "3",
+          "nameStage": "Срез дисбаланса/Взвешивание/Маркировка",
+          "timeStage": 22,
+          "machines": [
+            {
+              "id": "1",
+              "machineName": "DMF"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "nameDetail": "C75145/1990 - Ступица «Ромашка»",
+      "stages": [
+        {
+          "id": "1",
+          "nameStage": "Обработка первой стороны ступицы",
+          "timeStage": 18,
+          "machines": [
+            {
+              "id": "1",
+              "machineName": "Doosan 1"
+            },
+            {
+              "id": "2",
+              "machineName": "Doosan 2"
+            }
+          ]
+        },
+        {
+          "id": "2",
+          "nameStage": "Обработка второй стороны ступицы",
+          "timeStage": 20,
+          "machines": [
+            {
+              "id": "1",
+              "machineName": "Doosan 1"
+            },
+            {
+              "id": "2",
+              "machineName": "Doosan 2"
+            }
+          ]
+        },
+        {
+          "id": "3",
+          "nameStage": "Срез дисбаланса/Взвешивание/Маркировка",
+          "timeStage": 18,
+          "machines": [
+            {
+              "id": "1",
+              "machineName": "DMF + Schenck"
+            }
+          ]
+        },
+        {
+          "id": "4",
+          "nameStage": "Сверление/Фрезерование",
+          "timeStage": 15,
+          "machines": [
+            {
+              "id": "1",
+              "machineName": "DMF"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

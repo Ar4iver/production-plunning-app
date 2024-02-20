@@ -4,7 +4,7 @@ import { fetchDetailsData } from '../services/fetchDetails'
 import { fetchDetailsById } from '../services/fetchDetailsById'
 
 const initialState: DetailsState = {
-	details: [],
+	data: [],
 	isLoading: false,
 	error: null,
 	currentDetail: null,
@@ -24,7 +24,7 @@ const detailsSlice = createSlice({
 				fetchDetailsData.fulfilled,
 				(state, action: PayloadAction<Details[]>) => {
 					state.isLoading = false
-					state.details = action.payload
+					state.data = action.payload
 				}
 			)
 			.addCase(fetchDetailsData.rejected, (state, action) => {

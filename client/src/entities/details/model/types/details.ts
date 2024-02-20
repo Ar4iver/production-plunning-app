@@ -5,7 +5,7 @@ export interface Details {
 }
 
 export interface DetailsState {
-	details: Details[]
+	data: Details[]
 	isLoading: boolean
 	error: string | null
 	currentDetail: Details | null

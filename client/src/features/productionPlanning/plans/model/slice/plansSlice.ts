@@ -1,9 +1,9 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import { PlansState } from '../types/plans'
-import { addPlan } from '../services/createPlan'
+import { fetchCreatePlan } from '../services/fetchCreatePlan'
 
 const initialState: PlansState = {
-	plans: [],
+	data: [],
 	isLoading: false,
 	error: null,
 }
@@ -14,15 +14,15 @@ const plansSlice = createSlice({
 	reducers: {},
 	extraReducers: (builder) => {
 		builder
-			.addCase(addPlan.pending, (state) => {
+			.addCase(fetchCreatePlan.pending, (state) => {
 				state.isLoading = true
 				state.error = null
 			})
-			.addCase(addPlan.fulfilled, (state, action) => {
+			.addCase(fetchCreatePlan.fulfilled, (state, action) => {
 				state.isLoading = false
-				state.plans.push(action.payload)
+				state.data.push(action.payload)
 			})
-			.addCase(addPlan.rejected, (state, action) => {
+			.addCase(fetchCreatePlan.rejected, (state, action) => {
 				state.isLoading = false
 				state.error = action.payload as string
 			})

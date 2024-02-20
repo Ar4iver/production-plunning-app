@@ -1,5 +1,5 @@
 export interface ShiftsState {
-	shifts: Shift[]
+	data: Shift[]
 	isLoading: boolean
 	error: string | null
 }

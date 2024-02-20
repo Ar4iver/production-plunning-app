@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { MachinesState } from '../types/machines'
 
 const initialState: MachinesState = {
-	machines: [],
+	data: [],
 	isLoading: false,
 	error: null,
 }

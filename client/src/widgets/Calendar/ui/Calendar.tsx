@@ -3,7 +3,6 @@ import { classNames } from 'shared/lib/classNames/classNames'
 import cls from './Calendar.module.scss'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
-import SettingsContext from 'shared/lib/settings/SettingsContext'
 import { Modal } from 'shared/ui/Modal/Modal'
 import { AddPlanForm } from 'features/productionPlanning'
 

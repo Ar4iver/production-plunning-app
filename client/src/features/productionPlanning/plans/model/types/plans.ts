@@ -1,9 +1,15 @@
 import { Machine } from 'entities/machines/model/types/machines'
 import { Shift } from 'features/productionPlanning/shifts/model/types/shifts'
 
+export interface MachineStage {
+	id: string
+	machineName: string
+}
+
 export interface Stage {
 	id: string
 	nameStage: string
+	machines: MachineStage[]
 	timeStage: number
 }
 
@@ -22,7 +28,7 @@ export interface Plan {
 }
 
 export interface PlansState {
-	plans: Plan[]
+	data: Plan[]
 	isLoading: boolean
 	error: string | null
 }
