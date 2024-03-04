@@ -8,6 +8,10 @@ import cls from './AddPlanForm.module.scss'
 import { useSelector } from 'react-redux'
 import { getDetails, getIsLoading } from 'entities/details'
 import { getIsErrorData } from 'entities/details/model/selectors/getIsErrorData'
+import { v4 as uuidv4 } from 'uuid'
+import { MachineStage, Stage } from '../../model/types/plans'
+import { useAppDispatch } from 'app/providers/StoreProvider/config/store'
+import { fetchCreatePlan } from '../../model/services/fetchCreatePlan'
 
 interface AddPlanFormProps {
 	className?: string
@@ -18,18 +22,8 @@ interface OptionType {
 	label: string
 }
 
-interface DetailStage {
-	id: string
-	nameStage: string
-	machines: MachineStage[]
-}
-
-interface MachineStage {
-	id: string
-	machineName: string
-}
-
 export const AddPlanForm = ({ className }: AddPlanFormProps) => {
+	const dispatch = useAppDispatch()
 	const isLoading = useSelector(getIsLoading)
 	const details = useSelector(getDetails)
 	const error = useSelector(getIsErrorData)
@@ -46,6 +40,10 @@ export const AddPlanForm = ({ className }: AddPlanFormProps) => {
 	const [shifts, setShifts] = useState<number>(3)
 	const [startDate, setStartDate] = useState(new Date())
 	const formattedDate = format(startDate, 'yyyy-MM-dd')
+	const [detailInfoId, setDetailInfoId] = useState('')
+	const [detailInfoName, setDetailInfoName] = useState('')
+	const [stage, setStage] = useState({} as Stage)
+	const [machine, setMachine] = useState({} as MachineStage)
 
 	const detailOptions = details.map((detail) => ({
 		value: detail.id,
@@ -65,13 +63,13 @@ export const AddPlanForm = ({ className }: AddPlanFormProps) => {
 			const detail = details.find(
 				(detail) => detail.id === selectedOption.value
 			)
+			setDetailInfoId(detail!.id)
+			setDetailInfoName(detail!.nameDetail)
 			if (detail) {
-				const stagesOptions = detail.stages.map(
-					(stage: DetailStage) => ({
-						value: stage.id,
-						label: stage.nameStage,
-					})
-				)
+				const stagesOptions = detail.stages.map((stage: Stage) => ({
+					value: stage.id,
+					label: stage.nameStage,
+				}))
 				setStages(stagesOptions)
 			}
 		}
@@ -86,8 +84,10 @@ export const AddPlanForm = ({ className }: AddPlanFormProps) => {
 			const stage = details
 				.find((detail) => detail.id === selectedDetail?.value)
 				?.stages.find(
-					(stage: DetailStage) => stage.id === selectedOption.value
-				) as DetailStage | undefined
+					(stage: Stage) => stage.id === selectedOption.value
+				) as Stage | undefined
+
+			setStage(stage!)
 
 			if (stage) {
 				const machineOptions = stage.machines.map(
@@ -101,11 +101,44 @@ export const AddPlanForm = ({ className }: AddPlanFormProps) => {
 		}
 	}
 
+	const handleMachineChange = (selectedOption: SingleValue<OptionType>) => {
+		if (selectedOption) {
+			setMachine({
+				id: selectedOption.value,
+				machineName: selectedOption.label,
+			})
+		} else {
+			setMachine({} as MachineStage)
+		}
+	}
+
 	return (
 		<form
 			onSubmit={(e) => {
 				e.preventDefault()
-				console.log(formattedDate)
+				const formData = {
+					id: uuidv4(),
+					detailInfo: {
+						id: detailInfoId,
+						detailName: detailInfoName,
+					},
+					stage: {
+						id: stage.id,
+						nameStage: stage.nameStage,
+						timeStage: stage.timeStage,
+					},
+					machine: {
+						id: machine.id,
+						machineName: machine.machineName,
+					},
+					parts: quantity,
+					productivity: productivity,
+					shifts: shifts,
+					startDate: formattedDate,
+				}
+				if (formData) {
+					dispatch(fetchCreatePlan(formData))
+				}
 			}}
 			className={classNames(cls.AddPlanForm, {}, ['space-y-4'])}
 		>
@@ -158,6 +191,7 @@ export const AddPlanForm = ({ className }: AddPlanFormProps) => {
 					className="basic-single"
 					classNamePrefix="select"
 					name="machine"
+					onChange={handleMachineChange}
 					isDisabled={!selectedStage}
 					isClearable
 				/>
@@ -165,13 +199,13 @@ export const AddPlanForm = ({ className }: AddPlanFormProps) => {
 			<div className="flex gap-1">
 				<div>
 					<label
-						htmlFor="detailMachineName"
+						htmlFor="parts"
 						className="block text-sm font-medium text-gray-700"
 					>
 						Количество заготовок
 					</label>
 					<input
-						name="detailMachineName"
+						name="parts"
 						type="number"
 						value={quantity.toString()}
 						onChange={(e) => setQuantity(Number(e.target.value))}

@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { OrdersState } from '../types/orders'
 
 const initialState: OrdersState = {
-	orders: [],
+	data: [],
 	isLoading: false,
 	error: null,
 }

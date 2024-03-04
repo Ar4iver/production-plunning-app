@@ -1,0 +1,39 @@
+.EquipmentRow {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.columnFirst {
+    position: absolute;
+    display: flex;
+    left: -150px;
+}
+
+.equipmentName {
+    flex: 0 0 100px;
+    padding: 4px;
+    border: 1px solid #ccc;
+}
+
+.dayColumn {
+    display: flex;
+}
+
+.shiftPlanFactCell {
+    width: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+}
+
+.plan,
+.fact {
+    padding: 2px;
+}
+
+.test {
+    display: flex;
+}

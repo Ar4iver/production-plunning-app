@@ -1,5 +1,26 @@
 {
-	"plans": [],
+	"plans": [
+		{
+			"id": "6e19049e-b110-498d-bf89-574b8fae6190",
+			"detailInfo": {
+				"id": "1",
+				"detailName": "C60059/1R - Осевой чугунный диск"
+			},
+			"stage": {
+				"id": "2",
+				"nameStage": "Обработка второй стороны диска",
+				"timeStage": 29
+			},
+			"machine": {
+				"id": "1",
+				"machineName": "Doosan 1"
+			},
+			"parts": 100,
+			"productivity": 50,
+			"shifts": 2,
+			"startDate": "2024-02-20"
+		}
+	],
 	"details": [
 		{
 			"id": "1",

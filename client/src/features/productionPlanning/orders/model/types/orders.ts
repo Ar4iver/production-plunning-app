@@ -6,7 +6,7 @@ export interface Order {
 }
 
 export interface OrdersState {
-	orders: Order[]
+	data: Order[]
 	isLoading: boolean
 	error: string | null
 }

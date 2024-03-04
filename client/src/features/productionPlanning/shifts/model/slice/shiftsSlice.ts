@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ShiftsState } from '../types/shifts'
 
 const initialState: ShiftsState = {
-	shifts: [],
+	data: [],
 	isLoading: false,
 	error: null,
 }

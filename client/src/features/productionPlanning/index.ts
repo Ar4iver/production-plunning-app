@@ -5,6 +5,7 @@ import { AddPlanForm } from './plans/ui/AddPlanForm/AddPlanForm'
 import { PlansState } from './plans/model/types/plans'
 import { OrdersState } from './orders/model/types/orders'
 import { ShiftsState } from './shifts/model/types/shifts'
+import { ShiftCell } from './shifts/ui/ShiftCell/ShiftCell'
 
 //редьюсеры
 export { shiftsReducer, ordersReducer, plansReducer }
@@ -13,4 +14,4 @@ export { shiftsReducer, ordersReducer, plansReducer }
 export { PlansState, OrdersState, ShiftsState }
 
 //фича
-export { AddPlanForm }
+export { AddPlanForm, ShiftCell }

@@ -3,4 +3,4 @@ import { DetailsState } from '../types/details'
 
 // export const getAllDetailsNames = (state: StateSchema) => state.details.details
 
-export const getDetails = (state: StateSchema) => state.details.details
+export const getDetails = (state: StateSchema) => state.details.data
