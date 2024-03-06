@@ -1,4 +1,4 @@
-import { Machine } from 'entities/machines/model/types/machines'
+import { Machine } from 'features/productionPlanning/machines'
 import { Shift } from 'features/productionPlanning/shifts/model/types/shifts'
 
 export interface MachineStage {
@@ -6,7 +6,7 @@ export interface MachineStage {
 	machineName: string
 }
 
-export interface Stage {
+export interface StageState {
 	id: string
 	nameStage: string
 	machines: MachineStage[]
@@ -19,7 +19,7 @@ export interface Plan {
 		id: string
 		detailName: string
 	}
-	stage: Stage
+	stage: StageState
 	machine: Machine
 	parts: number
 	productivity: number

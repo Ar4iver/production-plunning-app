@@ -1,6 +1,8 @@
+import { MachinePlunning } from 'widgets/PlunningBoard/types/types'
 import { DateCell } from './DateCell/DateCell'
 import { EquipmentCell } from './EquipmentCell/EquipmentCell'
-import { EquipmentColumn } from './EquipmentColumn/EquipmentColumn'
 import { WeekHeaderRow } from './WeekHeaderRow/WeekHeaderRow'
 
-export { DateCell, EquipmentCell, WeekHeaderRow, EquipmentColumn }
+export { DateCell, EquipmentCell, WeekHeaderRow }
+
+export { MachinePlunning }

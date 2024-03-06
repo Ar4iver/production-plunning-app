@@ -6,13 +6,13 @@ import {
 	ReducersMapObject,
 } from '@reduxjs/toolkit'
 import { AxiosInstance } from 'axios'
-import { DetailsState } from 'entities/details'
-import { MachinesState } from 'entities/machines'
 import {
 	OrdersState,
 	PlansState,
 	ShiftsState,
 } from 'features/productionPlanning'
+import { DetailsState } from 'features/productionPlanning/details'
+import { MachinesState } from 'features/productionPlanning/machines'
 
 export interface StateSchema {
 	plans: PlansState

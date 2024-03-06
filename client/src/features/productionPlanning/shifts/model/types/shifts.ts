@@ -14,7 +14,6 @@ export interface MachineInShift {
 export interface Shift {
 	id: string // идентификатор смены
 	planId?: string //идентификатор плана
-	startTime?: string //начало смены
-	endTime: string //конец смены
+	shiftTime: number ///время в смене
 	machines: MachineInShift[] // станки, которые работают в смене.
 }

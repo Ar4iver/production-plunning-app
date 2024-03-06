@@ -5,6 +5,7 @@ const http = require('http')
 const plansController = require('./plansController.js')
 const detailsController = require('./detailsController.js')
 const getDetailByIdController = require('./getDetailByIdController.js')
+const machineController = require('./machineController.js')
 
 const server = jsonServer.create()
 
@@ -16,6 +17,7 @@ server.use(jsonServer.bodyParser)
 server.use(router)
 server.post('/plans', plansController().addPlan)
 server.get('/details', detailsController().getAllDetails)
+server.get('./machine', machineController().addMachine)
 server.get('/details/:id', getDetailByIdController().getDetailById)
 
 // запуск сервера

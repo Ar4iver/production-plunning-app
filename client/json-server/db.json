@@ -1,24 +1,158 @@
 {
 	"plans": [
 		{
-			"id": "6e19049e-b110-498d-bf89-574b8fae6190",
-			"detailInfo": {
-				"id": "1",
-				"detailName": "C60059/1R - Осевой чугунный диск"
-			},
-			"stage": {
-				"id": "2",
-				"nameStage": "Обработка второй стороны диска",
-				"timeStage": 29
-			},
-			"machine": {
-				"id": "1",
-				"machineName": "Doosan 1"
-			},
-			"parts": 100,
-			"productivity": 50,
-			"shifts": 2,
-			"startDate": "2024-02-20"
+			"name": "Doosan 1914",
+			"days": [
+				{
+					"date": "2024-03-04",
+					"detailInfo": {
+						"product": {
+							"id": "sdfsdf324234",
+							"nameDetail": "C75145/1990 - Ступица «Ромашка»",
+							"stages": []
+						},
+						"stage": {
+							"id": "223sdfsdf234",
+							"nameStage": "Обработка первой стороны ступицы",
+							"timeStage": 18,
+							"machines": []
+						}
+					},
+					"shiftPlans": [
+						{
+							"id": "0sdfxc6",
+							"shiftInfo": {
+								"people": 3,
+								"productivity": 75
+							},
+							"shift": "A",
+							"plan": 20,
+							"fact": null
+						},
+						{
+							"id": "5sdf34",
+							"shiftInfo": {
+								"people": 3,
+								"productivity": 75
+							},
+							"shift": "B",
+							"plan": 20,
+							"fact": null
+						},
+						{
+							"id": "2sdzcxb2",
+							"shiftInfo": {
+								"people": 3,
+								"productivity": 75
+							},
+							"shift": "C",
+							"plan": 20,
+							"fact": null
+						}
+					]
+				},
+				{
+					"date": "2024-03-05",
+					"detailInfo": {
+						"product": {
+							"id": "sdfsdf324234",
+							"nameDetail": "C75145/1990 - Ступица «Ромашка»",
+							"stages": []
+						},
+						"stage": {
+							"id": "223sdfsdf234",
+							"nameStage": "Обработка первой стороны ступицы",
+							"timeStage": 18,
+							"machines": []
+						}
+					},
+					"shiftPlans": [
+						{
+							"id": "0sdfxc6",
+							"shiftInfo": {
+								"people": 3,
+								"productivity": 75
+							},
+							"shift": "A",
+							"plan": 20,
+							"fact": null
+						},
+						{
+							"id": "5sdf34",
+							"shiftInfo": {
+								"people": 3,
+								"productivity": 75
+							},
+							"shift": "B",
+							"plan": 20,
+							"fact": null
+						},
+						{
+							"id": "2sdzcxb2",
+							"shiftInfo": {
+								"people": 3,
+								"productivity": 75
+							},
+							"shift": "C",
+							"plan": 20,
+							"fact": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Doosan 1970",
+			"days": [
+				{
+					"date": "2024-03-04",
+					"detailInfo": {
+						"product": {
+							"id": "sdlvndhaf24234",
+							"nameDetail": "C75145/1990 - Ступица «Ромашка»",
+							"stages": []
+						},
+						"stage": {
+							"id": "223sdfsdf234",
+							"nameStage": "Обработка второй стороны ступицы",
+							"timeStage": 20,
+							"machines": []
+						}
+					},
+					"shiftPlans": [
+						{
+							"id": "0sdfg6",
+							"shiftInfo": {
+								"people": 3,
+								"productivity": 75
+							},
+							"shift": "A",
+							"plan": 20,
+							"fact": null
+						},
+						{
+							"id": "0sscxc6",
+							"shiftInfo": {
+								"people": 3,
+								"productivity": 75
+							},
+							"shift": "B",
+							"plan": 15,
+							"fact": null
+						},
+						{
+							"id": "0sdlkc6",
+							"shiftInfo": {
+								"people": 3,
+								"productivity": 75
+							},
+							"shift": "C",
+							"plan": 25,
+							"fact": null
+						}
+					]
+				}
+			]
 		}
 	],
 	"details": [
@@ -126,6 +260,23 @@
 					]
 				}
 			]
+		}
+	],
+	"machine": [
+		{
+			"id": "1",
+			"machineName": "Doosan 1914",
+			"plans": []
+		},
+		{
+			"id": "2",
+			"machineName": "Doosan 1970",
+			"plans": []
+		},
+		{
+			"id": "3",
+			"machineName": "DMF 260",
+			"plans": []
 		}
 	]
 }

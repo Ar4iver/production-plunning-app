@@ -1,27 +1,29 @@
 import React from 'react'
 import { classNames } from 'shared/lib/classNames/classNames'
-import cls from './EquipmentColumn.module.scss'
-import { Equipment } from 'widgets/PlunningBoard/types/types'
+import cls from './MachinePlunningRow.module.scss'
+import { MachinePlunning } from 'widgets/PlunningBoard/types/types'
 
-interface EquipmentColumnProps {
+interface MachinePlunningRowProps {
 	className?: string
-	equipment: Equipment
+	equipment: MachinePlunning
 	weekDates: string[]
 }
 
-export const EquipmentColumn = ({
+export const MachinePlunningRow = ({
 	className,
 	equipment,
 	weekDates,
-}: EquipmentColumnProps) => {
-	const plansByDate = equipment.days.reduce((acc: any, day) => {
-		acc[day.date] = day.shiftPlans
+}: MachinePlunningRowProps) => {
+	///todo: указать тип
+	const plansByDate = equipment.plans.reduce((acc: any, plan) => {
+		acc[plan.date] = plan.shiftPlans
 		return acc
 	}, {})
+
 	return (
 		<div className={classNames(cls.EquipmentRow, {}, [className])}>
 			<div className={cls.columnFirst}>
-				<div className={cls.equipmentName}>{equipment.name}</div>
+				<div className={cls.equipmentName}>{equipment.machineName}</div>
 				<div className={cls.shiftPlanFactCell}>
 					<div className={cls.plan}>План</div>
 					<div className={cls.fact}>Факт</div>

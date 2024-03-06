@@ -2,12 +2,12 @@ import { Reducer, ReducersMapObject, configureStore } from '@reduxjs/toolkit'
 import { StateSchema, ThunkExtraArg } from './StateSchema'
 import { useDispatch } from 'react-redux'
 import {
+	detailsReducer,
+	machinesReducer,
 	ordersReducer,
 	plansReducer,
 	shiftsReducer,
 } from 'features/productionPlanning'
-import { machinesReducer } from 'entities/machines'
-import { detailsReducer } from 'entities/details'
 import { $api } from 'shared/api/api'
 import { createReducerManager } from './reducerManager'
 

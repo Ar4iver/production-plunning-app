@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import { ShiftsState } from '../types/shifts'
 
 const initialState: ShiftsState = {

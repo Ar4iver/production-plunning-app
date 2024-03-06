@@ -1,6 +1,7 @@
 export interface Machine {
 	id: string
-	name: string
+	machineName: string
+	plans: []
 }
 
 export interface MachinesState {

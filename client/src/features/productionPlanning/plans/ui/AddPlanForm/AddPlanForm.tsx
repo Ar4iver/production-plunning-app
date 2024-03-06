@@ -6,12 +6,11 @@ import Select, { SingleValue } from 'react-select'
 import { classNames } from 'shared/lib/classNames/classNames'
 import cls from './AddPlanForm.module.scss'
 import { useSelector } from 'react-redux'
-import { getDetails, getIsLoading } from 'entities/details'
-import { getIsErrorData } from 'entities/details/model/selectors/getIsErrorData'
 import { v4 as uuidv4 } from 'uuid'
-import { MachineStage, Stage } from '../../model/types/plans'
+import { MachineStage, StageState } from '../../model/types/plans'
 import { useAppDispatch } from 'app/providers/StoreProvider/config/store'
 import { fetchCreatePlan } from '../../model/services/fetchCreatePlan'
+import { getDetails, getIsLoading, getIsErrorData } from 'features/productionPlanning/details'
 
 interface AddPlanFormProps {
 	className?: string
@@ -42,7 +41,7 @@ export const AddPlanForm = ({ className }: AddPlanFormProps) => {
 	const formattedDate = format(startDate, 'yyyy-MM-dd')
 	const [detailInfoId, setDetailInfoId] = useState('')
 	const [detailInfoName, setDetailInfoName] = useState('')
-	const [stage, setStage] = useState({} as Stage)
+	const [stage, setStage] = useState({} as StageState)
 	const [machine, setMachine] = useState({} as MachineStage)
 
 	const detailOptions = details.map((detail) => ({
@@ -66,7 +65,7 @@ export const AddPlanForm = ({ className }: AddPlanFormProps) => {
 			setDetailInfoId(detail!.id)
 			setDetailInfoName(detail!.nameDetail)
 			if (detail) {
-				const stagesOptions = detail.stages.map((stage: Stage) => ({
+				const stagesOptions = detail.stages.map((stage: StageState) => ({
 					value: stage.id,
 					label: stage.nameStage,
 				}))
@@ -84,8 +83,8 @@ export const AddPlanForm = ({ className }: AddPlanFormProps) => {
 			const stage = details
 				.find((detail) => detail.id === selectedDetail?.value)
 				?.stages.find(
-					(stage: Stage) => stage.id === selectedOption.value
-				) as Stage | undefined
+					(stage: StageState) => stage.id === selectedOption.value
+				) as StageState | undefined
 
 			setStage(stage!)
 
