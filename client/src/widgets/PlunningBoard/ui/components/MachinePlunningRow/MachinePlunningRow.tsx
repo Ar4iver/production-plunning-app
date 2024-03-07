@@ -20,10 +20,16 @@ export const MachinePlunningRow = ({
 		return acc
 	}, {})
 
+	const handlePlanning = () => {
+		console.log('планируем', equipment.id)
+	}
+
 	return (
 		<div className={classNames(cls.EquipmentRow, {}, [className])}>
 			<div className={cls.columnFirst}>
-				<div className={cls.equipmentName}>{equipment.machineName}</div>
+				<div onClick={handlePlanning} className={cls.equipmentName}>
+					{equipment.machineName}
+				</div>
 				<div className={cls.shiftPlanFactCell}>
 					<div className={cls.plan}>План</div>
 					<div className={cls.fact}>Факт</div>

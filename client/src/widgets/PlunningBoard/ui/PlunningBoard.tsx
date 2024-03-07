@@ -8,6 +8,8 @@ import { useAppDispatch } from 'app/providers/StoreProvider/config/store'
 import { useSelector } from 'react-redux'
 import { fetchMachineData } from 'features/productionPlanning/machines/model/services/fetchMachine'
 import { getMachine } from 'features/productionPlanning/machines'
+import { generatePlan } from 'shared/lib/utils/generatedPlan'
+import { Shift } from '../types/types'
 
 interface PlunningBoardProps {
 	className?: string
@@ -15,6 +17,7 @@ interface PlunningBoardProps {
 
 const machineDataArray: MachinePlunning[] = [
 	{
+		id: '1',
 		machineName: 'Doosan 1914',
 		plans: [
 			{
@@ -116,6 +119,7 @@ const machineDataArray: MachinePlunning[] = [
 		],
 	},
 	{
+		id: '2',
 		machineName: 'Doosan 1970',
 		plans: [
 			{
@@ -178,6 +182,27 @@ export const PlunningBoard = ({ className }: PlunningBoardProps) => {
 	useEffect(() => {
 		dispatch(fetchMachineData())
 	}, [])
+
+	// Пример использования
+	const startDate = '2024-03-01'
+	const detailName = 'Деталь X'
+	const stageName = 'Фрезеровка'
+	const stageDuration = 20 // Продолжительность этапа в минутах
+	const totalQuantity = 200 // Общее количество заготовок
+	const shiftEfficiency = 0.75 // Продуктивность смены (75%)
+	const shifts: Shift[] = ['A', 'B'] // Список смен
+
+	const productionPlan = generatePlan(
+		startDate,
+		detailName,
+		stageName,
+		stageDuration,
+		totalQuantity,
+		shiftEfficiency,
+		shifts
+	)
+
+	console.log(productionPlan)
 
 	return (
 		<div className={classNames(cls.planningBoard, {}, [className])}>

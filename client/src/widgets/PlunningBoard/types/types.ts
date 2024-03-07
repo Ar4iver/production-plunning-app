@@ -15,6 +15,7 @@ export interface ShiftPlan {
 }
 
 export interface MachinePlunning {
+	id: string
 	machineName: string
 	plans: DayPlan[]
 }
