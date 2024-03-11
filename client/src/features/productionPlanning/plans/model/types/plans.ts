@@ -14,7 +14,7 @@ export interface StageState {
 }
 
 export interface Plan {
-	id: string
+	id: string | number
 	detailInfo: {
 		id: string
 		detailName: string

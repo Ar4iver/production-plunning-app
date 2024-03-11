@@ -21,10 +21,6 @@ export const AddMachinesForm = ({ className }: AddMachinesFormProps) => {
 		label: machine.machineName,
 	}))
 
-	useEffect(() => {
-		dispatch(fetchMachineData())
-	}, [])
-
 	return (
 		<div className={classNames(cls.AddMachinesForm, {}, [className])}>
 			<div className={cls.select}>

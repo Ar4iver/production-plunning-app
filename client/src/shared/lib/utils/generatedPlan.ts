@@ -1,120 +1,77 @@
-// type Shift = 'A' | 'B' | 'C' // Определяем тип для смен
-
-// interface PlanItem {
-// 	date: string
-// 	shift: Shift
-// 	quantity: number
-// }
-
-// export function generatePlan(
-// 	startDate: string,
-// 	detailName: string, // Этот параметр в дальнейшем можно использовать для более сложной логики
-// 	stageName: string, // Аналогично, используется в расширенной логике
-// 	stageDuration: number,
-// 	totalQuantity: number,
-// 	shiftEfficiency: number,
-// 	shifts: Shift[]
-// ): PlanItem[] {
-// 	const shiftDuration = 460
-// 	const effectiveDuration = shiftDuration * shiftEfficiency
-// 	const perShiftQuantity = Math.floor(effectiveDuration / stageDuration)
-// 	let requiredShifts = Math.ceil(totalQuantity / perShiftQuantity)
-
-// 	const plan: PlanItem[] = []
-// 	let currentDate = new Date(startDate)
-// 	let shiftIndex = 0
-
-// 	while (requiredShifts > 0) {
-// 		if (shiftIndex >= shifts.length) {
-// 			shiftIndex = 0
-// 			currentDate.setDate(currentDate.getDate() + 1) // Переходим к следующему дню
-// 		}
-
-// 		plan.push({
-// 			date: currentDate.toISOString().split('T')[0],
-// 			shift: shifts[shiftIndex],
-// 			quantity:
-// 				perShiftQuantity > totalQuantity
-// 					? totalQuantity
-// 					: perShiftQuantity,
-// 		})
-
-// 		totalQuantity -= perShiftQuantity
-// 		requiredShifts--
-// 		shiftIndex++
-// 	}
-
-// 	return plan
-// }
-
-type Shift = 'A' | 'B' | 'C'
-
 interface ShiftPlan {
-	date: string
-	shift: Shift
-	quantity: number
+	shift: string // Название смены, например "A", "B"
+	quantity: number // Планируемое количество работы для смены
+	efficiency: number // Производительность смены в процентах
 }
 
 interface DailyPlan {
-	[date: string]: ShiftPlan[]
+	date: string // Дата дня
+	plans: ShiftPlan[] // Планы для каждой смены в этот день
 }
 
-interface ProductionPlan {
-	id: string
+interface Plan {
 	startDate: string
-	plan: DailyPlan
-}
-
-function generateUniqueId(): string {
-	return Math.random().toString(36).substr(2, 9)
+	detailName: string
+	stage: {
+		nameStage: string
+		duration: number
+	}
+	totalQuantity: number
+	shiftEfficiency: number
+	shifts: string[]
+	dailyPlans: DailyPlan[]
 }
 
 export function generatePlan(
 	startDate: string,
-	detailName: string, // Параметр для будущего использования
-	stageName: string, // Параметр для будущего использования
+	detailName: string,
+	stageName: string,
 	stageDuration: number,
 	totalQuantity: number,
 	shiftEfficiency: number,
-	shifts: Shift[]
-): ProductionPlan {
+	shifts: string[]
+): Plan {
 	const shiftDuration = 460
-	const effectiveDuration = shiftDuration * shiftEfficiency
-	const perShiftQuantity = Math.floor(effectiveDuration / stageDuration)
-	let requiredShifts = Math.ceil(totalQuantity / perShiftQuantity)
+	const effectiveDuration = shiftDuration * shiftEfficiency // время с учётом производительности
+	const perShiftQuantity = Math.floor(effectiveDuration / stageDuration) // Количество заготовок на смену
+	let requiredShifts = Math.ceil(totalQuantity / perShiftQuantity) // Общее количество требуемых смен на выполнение плана
 
-	const dailyPlan: DailyPlan = {}
+	let dailyPlans: DailyPlan[] = []
 	let currentDate = new Date(startDate)
-	let shiftIndex = 0
+	let remainingQuantity = totalQuantity
 
 	while (requiredShifts > 0) {
-		const dateKey = currentDate.toISOString().split('T')[0]
-		if (!dailyPlan[dateKey]) {
-			dailyPlan[dateKey] = []
-		}
+		for (let shift of shifts) {
+			if (remainingQuantity <= 0) break
 
-		const shiftPlan: ShiftPlan = {
-			date: dateKey,
-			shift: shifts[shiftIndex],
-			quantity:
-				perShiftQuantity > totalQuantity
-					? totalQuantity
-					: perShiftQuantity,
-		}
+			let quantityForShift = Math.min(perShiftQuantity, remainingQuantity)
+			let dateKey = currentDate.toISOString().split('T')[0]
+			let foundDay = dailyPlans.find((day) => day.date === dateKey)
 
-		dailyPlan[dateKey].push(shiftPlan)
+			if (!foundDay) {
+				foundDay = { date: dateKey, plans: [] }
+				dailyPlans.push(foundDay)
+			}
 
-		totalQuantity -= perShiftQuantity
-		requiredShifts--
-		shiftIndex = (shiftIndex + 1) % shifts.length
-		if (shiftIndex === 0) {
-			currentDate.setDate(currentDate.getDate() + 1)
+			foundDay.plans.push({
+				shift: shift,
+				quantity: quantityForShift,
+				efficiency: shiftEfficiency * 100, // Производительность смены в процентах
+			})
+
+			remainingQuantity -= quantityForShift
+			requiredShifts--
 		}
+		currentDate.setDate(currentDate.getDate() + 1) // Переходим к следующему дню
 	}
 
 	return {
-		id: generateUniqueId(),
 		startDate: startDate,
-		plan: dailyPlan,
+		detailName: detailName,
+		stage: { nameStage: stageName, duration: stageDuration },
+		totalQuantity: totalQuantity,
+		shiftEfficiency: shiftEfficiency,
+		shifts: shifts,
+		dailyPlans: dailyPlans,
 	}
 }

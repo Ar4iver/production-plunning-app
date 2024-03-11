@@ -1,45 +1,40 @@
-import { createAsyncThunk } from '@reduxjs/toolkit'
-import { Plan } from '../types/plans'
-import { ThunkConfig } from 'app/providers/StoreProvider'
+// import { createAsyncThunk } from '@reduxjs/toolkit'
+// import { Plan } from '../types/plans'
+// import { ThunkConfig } from 'app/providers/StoreProvider'
 
-interface CreatePlanProps {
-	id: string
-	detailInfo: {
-		id: string
-		detailName: string
-	}
-	stage: {
-		id: string
-		nameStage: string
-		timeStage: number
-	}
-	machine: {
-		id: string
-		machineName: string
-	}
-	parts: number
-	productivity: number
-	shifts: number
-	startDate: string
-}
+// interface CreatePlanProps {
+// 	id: string
+// 	startDate: string
+// 	detailName: string
+// 	stage: {
+// 		nameStage: string
+// 		duration: number
+// 	}
+// 	totalQuantity: number
+// 	shiftEfficiency: number
+// 	shifts: string[]
+// }
 
-export const fetchCreatePlan = createAsyncThunk<
-	Plan,
-	CreatePlanProps,
-	ThunkConfig<string>
->('plans/fetchCreatePlan', async (formData, thunkApi) => {
-	const { extra, dispatch, rejectWithValue } = thunkApi
+// export const fetchCreatePlan = createAsyncThunk<
+// 	Plan,
+// 	CreatePlanProps,
+// 	ThunkConfig<string>
+// >('plans/fetchCreatePlan', async ({ id, ...formData }, thunkApi) => {
+// 	const { extra, dispatch, rejectWithValue } = thunkApi
 
-	try {
-		const response = await extra.api.post<Plan>('/plans', formData)
+// 	try {
+// 		const response = await extra.api.post<Plan>(
+// 			`/machine/${id}/plans`,
+// 			formData
+// 		)
 
-		if (!response.data) {
-			throw new Error()
-		}
+// 		if (!response.data) {
+// 			throw new Error()
+// 		}
 
-		return response.data
-	} catch (e) {
-		console.log(e)
-		return rejectWithValue('error')
-	}
-})
+// 		return response.data
+// 	} catch (e) {
+// 		console.log(e)
+// 		return rejectWithValue('error')
+// 	}
+// })

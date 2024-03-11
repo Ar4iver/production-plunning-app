@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { classNames } from 'shared/lib/classNames/classNames'
 import cls from './MachinePlunningRow.module.scss'
 import { MachinePlunning } from 'widgets/PlunningBoard/types/types'
+import { Modal } from 'shared/ui/Modal/Modal'
+import { AddPlanForm } from 'features/productionPlanning'
 
 interface MachinePlunningRowProps {
 	className?: string
@@ -14,22 +16,46 @@ export const MachinePlunningRow = ({
 	equipment,
 	weekDates,
 }: MachinePlunningRowProps) => {
+	const [isOpen, setIsOpen] = useState(false)
+	const [formData, setFormData] = useState({} as MachinePlunning)
+
 	///todo: указать тип
-	const plansByDate = equipment.plans.reduce((acc: any, plan) => {
+	const plansByDate = equipment?.plans.reduce((acc: any, plan) => {
 		acc[plan.date] = plan.shiftPlans
 		return acc
 	}, {})
 
 	const handlePlanning = () => {
-		console.log('планируем', equipment.id)
+		setFormData(equipment)
+		setIsOpen(true)
 	}
 
 	return (
 		<div className={classNames(cls.EquipmentRow, {}, [className])}>
 			<div className={cls.columnFirst}>
-				<div onClick={handlePlanning} className={cls.equipmentName}>
-					{equipment.machineName}
+				<div
+					style={{
+						display: 'flex',
+						flexDirection: 'row',
+						flex: '0 0 100px',
+						padding: '4px',
+						border: '1px solid #ccc',
+						justifyContent: 'space-between',
+					}}
+				>
+					<div className={cls.equipmentName}>
+						{equipment.machineName}
+					</div>
+					<div
+						onClick={handlePlanning}
+						className={cls.equipmentBtnAddPlan}
+					>
+						<button>+</button>
+					</div>
 				</div>
+				<Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+					<AddPlanForm formData={formData} />
+				</Modal>
 				<div className={cls.shiftPlanFactCell}>
 					<div className={cls.plan}>План</div>
 					<div className={cls.fact}>Факт</div>
@@ -58,7 +84,7 @@ export const MachinePlunningRow = ({
 							))
 						) : (
 							///?????????? todo: решить проблему с пустыми ячейками
-							<div className={cls.test}>
+							<div className={cls.wrapperCell}>
 								<div className={cls.shiftPlanFactCell}>
 									<div className={cls.plan}>—</div>
 									<div className={cls.fact}>—</div>

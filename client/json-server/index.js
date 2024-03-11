@@ -14,11 +14,12 @@ const router = jsonServer.router(path.resolve(__dirname, 'db.json'))
 server.use(jsonServer.defaults({}))
 server.use(jsonServer.bodyParser)
 
-server.use(router)
 server.post('/plans', plansController().addPlan)
+server.post('/machine/:id/plan', machineController().addMachinePlan)
 server.get('/details', detailsController().getAllDetails)
-server.get('./machine', machineController().addMachine)
 server.get('/details/:id', getDetailByIdController().getDetailById)
+server.get('/test', (req, res) => res.send('Test route works'))
+server.use(router)
 
 // запуск сервера
 const HTTP_PORT = 8000

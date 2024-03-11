@@ -9,11 +9,20 @@ import { useSelector } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
 import { MachineStage, StageState } from '../../model/types/plans'
 import { useAppDispatch } from 'app/providers/StoreProvider/config/store'
-import { fetchCreatePlan } from '../../model/services/fetchCreatePlan'
-import { getDetails, getIsLoading, getIsErrorData } from 'features/productionPlanning/details'
+import {
+	getDetails,
+	getIsLoading,
+	getIsErrorData,
+	DetailsState,
+	Details,
+} from 'features/productionPlanning/details'
+import { MachinePlunning } from 'widgets/PlunningBoard/types/types'
+import { fetchCreatePlan } from 'features/productionPlanning/machines/model/services/fetchCreatePlan'
+import { generatePlan } from 'shared/lib/utils/generatedPlan'
 
 interface AddPlanFormProps {
 	className?: string
+	formData?: MachinePlunning
 }
 
 interface OptionType {
@@ -21,28 +30,42 @@ interface OptionType {
 	label: string
 }
 
-export const AddPlanForm = ({ className }: AddPlanFormProps) => {
+interface SelectState {
+	optionShifts: OptionType[]
+	value: OptionType | null
+}
+
+export const AddPlanForm = ({ className, formData }: AddPlanFormProps) => {
 	const dispatch = useAppDispatch()
 	const isLoading = useSelector(getIsLoading)
 	const details = useSelector(getDetails)
 	const error = useSelector(getIsErrorData)
 
+	const initialOptionShifts: OptionType[] = [
+		{ value: 'A', label: 'Смена A' },
+		{ value: 'B', label: 'Смена B' },
+		{ value: 'C', label: 'Смена C' },
+	]
+
 	const [selectedDetail, setSelectedDetail] =
 		useState<SingleValue<OptionType>>(null)
 	const [stages, setStages] = useState<OptionType[]>([])
 	const [isStagesDisabled, setIsStagesDisabled] = useState(true)
-	const [selectedStage, setSelectedStage] =
-		useState<SingleValue<OptionType>>(null)
-	const [machines, setMachines] = useState<OptionType[]>([])
+
 	const [quantity, setQuantity] = useState<number>(100)
 	const [productivity, setProductivity] = useState<number>(50)
-	const [shifts, setShifts] = useState<number>(3)
 	const [startDate, setStartDate] = useState(new Date())
 	const formattedDate = format(startDate, 'yyyy-MM-dd')
-	const [detailInfoId, setDetailInfoId] = useState('')
-	const [detailInfoName, setDetailInfoName] = useState('')
+
 	const [stage, setStage] = useState({} as StageState)
-	const [machine, setMachine] = useState({} as MachineStage)
+	const [detail, setDetail] = useState({} as Details)
+
+	const [selects, setSelects] = useState<SelectState[]>([
+		{ optionShifts: initialOptionShifts, value: null },
+	])
+	const [selectedValues, setSelectedValues] = useState<
+		OptionType | null | String[]
+	>([])
 
 	const detailOptions = details.map((detail) => ({
 		value: detail.id,
@@ -62,52 +85,85 @@ export const AddPlanForm = ({ className }: AddPlanFormProps) => {
 			const detail = details.find(
 				(detail) => detail.id === selectedOption.value
 			)
-			setDetailInfoId(detail!.id)
-			setDetailInfoName(detail!.nameDetail)
 			if (detail) {
-				const stagesOptions = detail.stages.map((stage: StageState) => ({
-					value: stage.id,
-					label: stage.nameStage,
-				}))
+				const stagesOptions = detail.stages.map(
+					(stage: StageState) => ({
+						value: stage.id,
+						label: stage.nameStage,
+					})
+				)
 				setStages(stagesOptions)
 			}
 		}
 	}
 
 	const handleStageChange = (selectedOption: SingleValue<OptionType>) => {
-		setSelectedStage(selectedOption)
+		if (!selectedOption || !selectedDetail) {
+			setStage({} as StageState)
+			return
+		}
 
-		if (!selectedOption) {
-			setMachines([])
-		} else {
-			const stage = details
-				.find((detail) => detail.id === selectedDetail?.value)
-				?.stages.find(
-					(stage: StageState) => stage.id === selectedOption.value
-				) as StageState | undefined
+		const detail = details.find(
+			(detail) => detail.id === selectedDetail.value
+		)
 
-			setStage(stage!)
+		if (detail) {
+			setDetail(detail)
+			const stage = detail.stages.find(
+				(stage: StageState) => stage.nameStage === selectedOption.label
+			) as StageState | undefined
 
 			if (stage) {
-				const machineOptions = stage.machines.map(
-					(machine: MachineStage) => ({
-						value: machine.id,
-						label: machine.machineName,
-					})
-				)
-				setMachines(machineOptions)
+				setStage(stage)
+			} else {
+				setStage({} as StageState)
 			}
+		} else {
+			setStage({} as StageState)
 		}
 	}
 
-	const handleMachineChange = (selectedOption: SingleValue<OptionType>) => {
-		if (selectedOption) {
-			setMachine({
-				id: selectedOption.value,
-				machineName: selectedOption.label,
-			})
-		} else {
-			setMachine({} as MachineStage)
+	const handleShiftChange = (
+		selectedOption: SingleValue<OptionType>,
+		index: number
+	) => {
+		const newValue = selectedOption ? selectedOption : null
+
+		const newSelects = selects.map((select, i) =>
+			i === index ? { ...select, value: newValue } : select
+		)
+		setSelects(newSelects)
+
+		const newValues = newSelects
+			.filter((select) => select.value !== null)
+			.map((select) => select.value!.value)
+		setSelectedValues(newValues)
+	}
+
+	const addShiftBtn = (e: any) => {
+		e.preventDefault()
+		e.stopPropagation()
+		setSelects([
+			...selects,
+			{ optionShifts: initialOptionShifts, value: null },
+		])
+	}
+
+	const onSubmitForm = () => {
+		const generatedPlan = generatePlan(
+			formattedDate,
+			detail?.nameDetail,
+			stage?.nameStage,
+			stage?.timeStage,
+			quantity,
+			productivity / 100,
+			selectedValues as string[]
+		)
+
+		const formDataFetch = { machineId: formData!.id, ...generatedPlan }
+
+		if (formData) {
+			dispatch(fetchCreatePlan(formDataFetch))
 		}
 	}
 
@@ -115,33 +171,12 @@ export const AddPlanForm = ({ className }: AddPlanFormProps) => {
 		<form
 			onSubmit={(e) => {
 				e.preventDefault()
-				const formData = {
-					id: uuidv4(),
-					detailInfo: {
-						id: detailInfoId,
-						detailName: detailInfoName,
-					},
-					stage: {
-						id: stage.id,
-						nameStage: stage.nameStage,
-						timeStage: stage.timeStage,
-					},
-					machine: {
-						id: machine.id,
-						machineName: machine.machineName,
-					},
-					parts: quantity,
-					productivity: productivity,
-					shifts: shifts,
-					startDate: formattedDate,
-				}
-				if (formData) {
-					dispatch(fetchCreatePlan(formData))
-				}
+				onSubmitForm()
 			}}
 			className={classNames(cls.AddPlanForm, {}, ['space-y-4'])}
 		>
 			<div>
+				<h2>Планируем для {formData?.machineName}</h2>
 				<label
 					htmlFor="detailName"
 					className="block text-sm font-medium text-gray-700"
@@ -177,25 +212,7 @@ export const AddPlanForm = ({ className }: AddPlanFormProps) => {
 					isClearable
 				/>
 			</div>
-			<div>
-				<label
-					htmlFor="equipment"
-					className="block text-sm font-medium text-gray-700"
-				>
-					Выбрать оборудование:
-				</label>
-				<Select
-					placeholder="Выбрать оборудование"
-					options={machines}
-					className="basic-single"
-					classNamePrefix="select"
-					name="machine"
-					onChange={handleMachineChange}
-					isDisabled={!selectedStage}
-					isClearable
-				/>
-			</div>
-			<div className="flex gap-1">
+			<div className="flex gap-1 flex-col">
 				<div>
 					<label
 						htmlFor="parts"
@@ -233,15 +250,32 @@ export const AddPlanForm = ({ className }: AddPlanFormProps) => {
 						htmlFor="shift"
 						className="block text-sm font-medium text-gray-700"
 					>
-						Количество смен
+						Смены
 					</label>
-					<input
-						name="shift"
-						type="number"
-						value={shifts.toString()}
-						onChange={(e) => setShifts(Number(e.target.value))}
-						className="border border-gray-300 rounded px-3 py-2 w-full"
-					/>
+					{selects.map((select, index) => (
+						<div key={index} className="mb-5">
+							<Select
+								placeholder="Выбрать смену"
+								options={select.optionShifts}
+								className="basic-single"
+								classNamePrefix="select"
+								name="shift"
+								onChange={(selectedOption) =>
+									handleShiftChange(selectedOption, index)
+								}
+								isClearable
+								value={select.value}
+							/>
+						</div>
+					))}
+					<div>
+						<button
+							onClick={addShiftBtn}
+							className="bg-blue-500 text-white rounded px-4 py-2 hover:bg-blue-600 focus:outline-none"
+						>
+							+ Добавить смену
+						</button>
+					</div>
 				</div>
 			</div>
 			<div>
@@ -262,4 +296,36 @@ export const AddPlanForm = ({ className }: AddPlanFormProps) => {
 			</button>
 		</form>
 	)
+}
+
+// const handleMachineChange = (selectedOption: SingleValue<OptionType>) => {
+// 	if (selectedOption) {
+// 		setMachine({
+// 			id: selectedOption.value,
+// 			machineName: selectedOption.label,
+// 		})
+// 	} else {
+// 		setMachine({} as MachineStage)
+// 	}
+// }
+
+{
+	/* <div>
+				<label
+					htmlFor="equipment"
+					className="block text-sm font-medium text-gray-700"
+				>
+					Выбрать оборудование:
+				</label>
+				<Select
+					placeholder="Выбрать оборудование"
+					options={machines}
+					className="basic-single"
+					classNamePrefix="select"
+					name="machine"
+					onChange={handleMachineChange}
+					isDisabled={!selectedStage}
+					isClearable
+				/>
+			</div> */
 }

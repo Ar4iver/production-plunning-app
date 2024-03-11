@@ -1,7 +1,9 @@
+import { Plan } from 'features/productionPlanning/plans/model/types/plans'
+
 export interface Machine {
 	id: string
 	machineName: string
-	plans: []
+	plans: any[]
 }
 
 export interface MachinesState {

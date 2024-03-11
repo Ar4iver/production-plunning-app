@@ -1,5 +1,7 @@
 .WeekHeaderRow {
+    gap: 10px;
     display: flex;
+    margin-bottom: 5px;
 }
 
 .dateColumn {
@@ -13,6 +15,7 @@
 }
 
 .shiftCell {
+    border-radius: 10px;
     width: 50px;
     height: 30px;
     border: 1px solid #ccc;
@@ -20,6 +23,7 @@
 }
 
 .cellWrapper {
+    gap: 5px;
     display: flex;
     flex-direction: row;
 }

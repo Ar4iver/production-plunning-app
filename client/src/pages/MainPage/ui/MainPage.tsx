@@ -13,7 +13,11 @@ interface MainPageProps {
 
 const MainPage = ({ className }: MainPageProps) => {
 	const [isOpen, setIsOpen] = useState(false)
+	const dispatch = useAppDispatch()
 
+	useEffect(() => {
+		dispatch(fetchDetailsData())
+	}, [])
 	return (
 		<div className={classNames(cls.MainPage, {}, [className])}>
 			<div className={classNames(cls.actionBtns, {}, [className])}>

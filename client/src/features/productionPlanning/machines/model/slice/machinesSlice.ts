@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Machine, MachinesState } from '../types/machines'
 import { fetchMachineData } from '../services/fetchMachine'
+import { fetchCreatePlan } from '../services/fetchCreatePlan'
+import { Plan } from 'features/productionPlanning/plans/model/types/plans'
 
 const initialState: MachinesState = {
 	data: [],
@@ -26,6 +28,28 @@ const machinesSlice = createSlice({
 				}
 			)
 			.addCase(fetchMachineData.rejected, (state, action) => {
+				state.isLoading = false
+				state.error = action.payload as string
+			})
+			.addCase(fetchCreatePlan.pending, (state) => {
+				state.isLoading = true
+				state.error = null
+			})
+			.addCase(
+				fetchCreatePlan.fulfilled,
+				(state, action: PayloadAction<Plan>) => {
+					const planData = action.payload
+					const machineId = planData.id
+					const machineIndex = state.data.findIndex(
+						(machine) => machine.id === machineId
+					)
+					if (machineIndex !== -1) {
+						state.data[machineIndex].plans.push(planData)
+					}
+					state.isLoading = false
+				}
+			)
+			.addCase(fetchCreatePlan.rejected, (state, action) => {
 				state.isLoading = false
 				state.error = action.payload as string
 			})
