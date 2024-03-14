@@ -2,6 +2,7 @@ interface ShiftPlan {
 	shift: string // Название смены, например "A", "B"
 	quantity: number // Планируемое количество работы для смены
 	efficiency: number // Производительность смены в процентах
+	fact: null | number
 }
 
 interface DailyPlan {
@@ -57,6 +58,7 @@ export function generatePlan(
 				shift: shift,
 				quantity: quantityForShift,
 				efficiency: shiftEfficiency * 100, // Производительность смены в процентах
+				fact: null,
 			})
 
 			remainingQuantity -= quantityForShift

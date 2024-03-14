@@ -110,13 +110,114 @@
 		{
 			"id": "1",
 			"machineName": "Doosan 1914",
-			"plans": []
+			"plans": [
+				{
+					"id": "sdfsgozo324ldf",
+					"startDate": "2024-03-11",
+					"detailName": "C75145/1990 - Ступица «Ромашка»",
+					"stage": {
+						"nameStage": "Обработка первой стороны ступицы",
+						"duration": 18
+					},
+					"totalQuantity": 200,
+					"shiftEfficiency": 0.85,
+					"shifts": ["A", "B"],
+					"dailyPlans": [
+						{
+							"date": "2024-03-11",
+							"plans": [
+								{
+									"shift": "A",
+									"quantity": 21,
+									"efficiency": 85,
+									"fact": null
+								},
+								{
+									"shift": "B",
+									"quantity": 21,
+									"efficiency": 85,
+									"fact": null
+								}
+							]
+						},
+						{
+							"date": "2024-03-12",
+							"plans": [
+								{
+									"shift": "A",
+									"quantity": 21,
+									"efficiency": 85,
+									"fact": null
+								},
+								{
+									"shift": "B",
+									"quantity": 21,
+									"efficiency": 85,
+									"fact": null
+								}
+							]
+						},
+						{
+							"date": "2024-03-13",
+							"plans": [
+								{
+									"shift": "A",
+									"quantity": 21,
+									"efficiency": 85,
+									"fact": null
+								},
+								{
+									"shift": "B",
+									"quantity": 21,
+									"efficiency": 85,
+									"fact": null
+								}
+							]
+						},
+						{
+							"date": "2024-03-14",
+							"plans": [
+								{
+									"shift": "A",
+									"quantity": 21,
+									"efficiency": 85,
+									"fact": null
+								},
+								{
+									"shift": "B",
+									"quantity": 21,
+									"efficiency": 85,
+									"fact": null
+								}
+							]
+						},
+						{
+							"date": "2024-03-15",
+							"plans": [
+								{
+									"shift": "A",
+									"quantity": 21,
+									"efficiency": 85,
+									"fact": null
+								},
+								{
+									"shift": "B",
+									"quantity": 11,
+									"efficiency": 85,
+									"fact": null
+								}
+							]
+						}
+					]
+				}
+			]
 		},
 		{
 			"id": "2",
 			"machineName": "Doosan 1970",
 			"plans": [
 				{
+					"id": "sdfsgmxvosgddf",
 					"startDate": "2024-03-11",
 					"detailName": "C75145/1990 - Ступица «Ромашка»",
 					"stage": {
@@ -174,7 +275,222 @@
 		{
 			"id": "3",
 			"machineName": "DMF 260",
-			"plans": []
+			"plans": [
+				{
+					"id": "rtytelyvcxgddf",
+					"startDate": "2024-03-11",
+					"detailName": "C75145/1990 - Ступица «Ромашка»",
+					"stage": {
+						"nameStage": "Сверление/Фрезерование",
+						"duration": 15
+					},
+					"totalQuantity": 250,
+					"shiftEfficiency": 0.85,
+					"shifts": ["C"],
+					"dailyPlans": [
+						{
+							"date": "2024-03-11",
+							"plans": [
+								{
+									"shift": "C",
+									"quantity": 26,
+									"efficiency": 85,
+									"fact": null
+								}
+							]
+						},
+						{
+							"date": "2024-03-12",
+							"plans": [
+								{
+									"shift": "C",
+									"quantity": 26,
+									"efficiency": 85,
+									"fact": null
+								}
+							]
+						},
+						{
+							"date": "2024-03-13",
+							"plans": [
+								{
+									"shift": "C",
+									"quantity": 26,
+									"efficiency": 85,
+									"fact": null
+								}
+							]
+						},
+						{
+							"date": "2024-03-14",
+							"plans": [
+								{
+									"shift": "C",
+									"quantity": 26,
+									"efficiency": 85,
+									"fact": null
+								}
+							]
+						},
+						{
+							"date": "2024-03-15",
+							"plans": [
+								{
+									"shift": "C",
+									"quantity": 26,
+									"efficiency": 85,
+									"fact": null
+								}
+							]
+						},
+						{
+							"date": "2024-03-16",
+							"plans": [
+								{
+									"shift": "C",
+									"quantity": 26,
+									"efficiency": 85,
+									"fact": null
+								}
+							]
+						},
+						{
+							"date": "2024-03-17",
+							"plans": [
+								{
+									"shift": "C",
+									"quantity": 26,
+									"efficiency": 85,
+									"fact": null
+								}
+							]
+						},
+						{
+							"date": "2024-03-18",
+							"plans": [
+								{
+									"shift": "C",
+									"quantity": 26,
+									"efficiency": 85,
+									"fact": null
+								}
+							]
+						},
+						{
+							"date": "2024-03-19",
+							"plans": [
+								{
+									"shift": "C",
+									"quantity": 26,
+									"efficiency": 85,
+									"fact": null
+								}
+							]
+						},
+						{
+							"date": "2024-03-20",
+							"plans": [
+								{
+									"shift": "C",
+									"quantity": 16,
+									"efficiency": 85,
+									"fact": null
+								}
+							]
+						}
+					]
+				},
+				{
+					"startDate": "2024-03-11",
+					"detailName": "C60059/1R - Осевой чугунный диск",
+					"stage": {
+						"nameStage": "Срез дисбаланса/Взвешивание/Маркировка",
+						"duration": 22
+					},
+					"totalQuantity": 70,
+					"shiftEfficiency": 0.5,
+					"shifts": ["A"],
+					"dailyPlans": [
+						{
+							"date": "2024-03-11",
+							"plans": [
+								{
+									"shift": "A",
+									"quantity": 10,
+									"efficiency": 50,
+									"fact": null
+								}
+							]
+						},
+						{
+							"date": "2024-03-12",
+							"plans": [
+								{
+									"shift": "A",
+									"quantity": 10,
+									"efficiency": 50,
+									"fact": null
+								}
+							]
+						},
+						{
+							"date": "2024-03-13",
+							"plans": [
+								{
+									"shift": "A",
+									"quantity": 10,
+									"efficiency": 50,
+									"fact": null
+								}
+							]
+						},
+						{
+							"date": "2024-03-14",
+							"plans": [
+								{
+									"shift": "A",
+									"quantity": 10,
+									"efficiency": 50,
+									"fact": null
+								}
+							]
+						},
+						{
+							"date": "2024-03-15",
+							"plans": [
+								{
+									"shift": "A",
+									"quantity": 10,
+									"efficiency": 50,
+									"fact": null
+								}
+							]
+						},
+						{
+							"date": "2024-03-16",
+							"plans": [
+								{
+									"shift": "A",
+									"quantity": 10,
+									"efficiency": 50,
+									"fact": null
+								}
+							]
+						},
+						{
+							"date": "2024-03-17",
+							"plans": [
+								{
+									"shift": "A",
+									"quantity": 10,
+									"efficiency": 50,
+									"fact": null
+								}
+							]
+						}
+					]
+				}
+			]
 		}
 	]
 }

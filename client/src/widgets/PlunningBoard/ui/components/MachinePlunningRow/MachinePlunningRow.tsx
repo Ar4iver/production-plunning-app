@@ -19,12 +19,6 @@ export const MachinePlunningRow = ({
 	const [isOpen, setIsOpen] = useState(false)
 	const [formData, setFormData] = useState({} as MachinePlunning)
 
-	///todo: указать тип
-	const plansByDate = equipment?.plans.reduce((acc: any, plan) => {
-		acc[plan.date] = plan.shiftPlans
-		return acc
-	}, {})
-
 	const handlePlanning = () => {
 		setFormData(equipment)
 		setIsOpen(true)
@@ -62,43 +56,46 @@ export const MachinePlunningRow = ({
 				</div>
 			</div>
 			{weekDates.map((date) => {
-				const shiftPlans = plansByDate[date] || []
+				const plansForDate = equipment.plans.flatMap((plan: any) =>
+					plan.dailyPlans.filter(
+						(dailyPlan: any) => dailyPlan.date === date
+					)
+				)
+
+				const shifts = ['A', 'B', 'C']
 
 				return (
 					<div className={cls.dayColumn} key={date}>
-						{shiftPlans.length > 0 ? (
-							shiftPlans.map((shiftPlan: any) => (
+						{shifts.map((shift) => {
+							const shiftPlans = plansForDate.flatMap(
+								(dailyPlan) =>
+									dailyPlan.plans.filter(
+										(plan: any) => plan.shift === shift
+									)
+							)
+
+							return shiftPlans.length > 0 ? (
+								shiftPlans.map((plan, index) => (
+									<div
+										className={cls.shiftPlanFactCell}
+										key={`${shift}-${index}`}
+									>
+										<div className={cls.plan}>
+											{plan.quantity}
+										</div>
+										<div className={cls.fact}>—</div>
+									</div>
+								))
+							) : (
 								<div
 									className={cls.shiftPlanFactCell}
-									key={shiftPlan.shift}
+									key={`${shift}-empty`}
 								>
-									<div className={cls.plan}>
-										{shiftPlan.plan}
-									</div>
-									<div className={cls.fact}>
-										{shiftPlan.fact !== null
-											? shiftPlan.fact
-											: '—'}
-									</div>
-								</div>
-							))
-						) : (
-							///?????????? todo: решить проблему с пустыми ячейками
-							<div className={cls.wrapperCell}>
-								<div className={cls.shiftPlanFactCell}>
 									<div className={cls.plan}>—</div>
 									<div className={cls.fact}>—</div>
 								</div>
-								<div className={cls.shiftPlanFactCell}>
-									<div className={cls.plan}>—</div>
-									<div className={cls.fact}>—</div>
-								</div>
-								<div className={cls.shiftPlanFactCell}>
-									<div className={cls.plan}>—</div>
-									<div className={cls.fact}>—</div>
-								</div>
-							</div>
-						)}
+							)
+						})}
 					</div>
 				)
 			})}

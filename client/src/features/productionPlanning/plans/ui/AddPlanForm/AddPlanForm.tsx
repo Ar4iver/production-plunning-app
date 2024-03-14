@@ -19,6 +19,7 @@ import {
 import { MachinePlunning } from 'widgets/PlunningBoard/types/types'
 import { fetchCreatePlan } from 'features/productionPlanning/machines/model/services/fetchCreatePlan'
 import { generatePlan } from 'shared/lib/utils/generatedPlan'
+import { fetchMachineData } from 'features/productionPlanning/machines/model/services/fetchMachine'
 
 interface AddPlanFormProps {
 	className?: string
@@ -164,6 +165,7 @@ export const AddPlanForm = ({ className, formData }: AddPlanFormProps) => {
 
 		if (formData) {
 			dispatch(fetchCreatePlan(formDataFetch))
+			dispatch(fetchMachineData())
 		}
 	}
 

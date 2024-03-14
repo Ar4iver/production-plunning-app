@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { classNames } from 'shared/lib/classNames/classNames'
 import cls from './PlunningBoard.module.scss'
 import { MachinePlunning, WeekHeaderRow } from './components'
@@ -19,7 +19,10 @@ export const PlunningBoard = ({ className }: PlunningBoardProps) => {
 	const machinePlansArray = useSelector(getMachine)
 
 	useEffect(() => {
-		dispatch(fetchMachineData())
+		async function fetchData() {
+			await dispatch(fetchMachineData())
+		}
+		fetchData()
 	}, [])
 
 	return (
